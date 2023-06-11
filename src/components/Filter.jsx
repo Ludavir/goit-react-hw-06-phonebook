@@ -1,8 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import '../styles/Filter.css';
+import { filterContacts } from '../../redux/filter/filter-slice';
+import { useDispatch } from 'react-redux';
 
-const Filter = ({ onFilter }) => {
+const Filter = () => {
+
+    const dispatch = useDispatch();
+    const onFilter = value => dispatch(filterContacts(value));
 return (
     <label className="label">
     <span className="span">Find contacts by name</span>
@@ -17,4 +21,3 @@ return (
 );
 };
 export default Filter;
-Filter.propTypes = { onFilter: PropTypes.func };

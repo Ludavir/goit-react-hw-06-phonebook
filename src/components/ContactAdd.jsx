@@ -3,22 +3,32 @@ import '../styles/ContactAdd.css';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import Notiflix from 'notiflix';
+import { useSelector, useDispatch } from 'react-redux';
+import { addContact } from '../../redux/contacts/contact-slice';
+import { getAllContacts } from '../../redux/contacts/contact-selectors';
 
+const Form = () => {
 
-const Form = ({ onSubmit }) => {
-    const [name, setName] = useState('');
-    const [number, setNumber] = useState('');
-  
-    const formSumbit = e => {
-      e.preventDefault();
-      onSubmit({ name, number });
+  const dispatch = useDispatch();
+  const contacts = useSelector(getAllContacts);
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
+
+  const formSumbit = e => {
+    e.preventDefault();
+    const nameToAdd = name;
+    const addCheck = contacts?.find(({ name }) => name.includes(nameToAdd));
+    if (!addCheck) {
+      dispatch(addContact({ name, number }));
+    } else {
       Notiflix.Report.success(`${name} was added`);
-      reset();
-    };
-    const reset = () => {
-      setName('');
-      setNumber('');
-    };
+    }
+    reset();
+  };
+  const reset = () => {
+    setName('');
+    setNumber('');
+  };
   
     return (
         <form className="form" onSubmit={formSumbit}>
@@ -59,5 +69,5 @@ const Form = ({ onSubmit }) => {
     );
   };
 
+ Form.propTypes = { onSubmit: PropTypes.func };
 export default Form;
-Form.propTypes = { onSubmit: PropTypes.func };
