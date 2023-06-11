@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import Notiflix from 'notiflix';
 import { useSelector, useDispatch } from 'react-redux';
-import { addContact } from '../../redux/contacts/contact-slice';
-import { getAllContacts } from '../../redux/contacts/contact-selectors';
+import { addContact } from '../redux/contacts/contact-slice';
+import { getAllContacts } from '../redux/contacts/contact-selectors';
 
 const Form = () => {
 
