@@ -6,6 +6,7 @@ import Notiflix from 'notiflix';
 import { useSelector, useDispatch } from 'react-redux';
 import { addContact } from '../redux/contacts/contact-slice';
 import { getAllContacts } from '../redux/contacts/contact-selectors';
+import Swal from 'sweetalert2'
 
 const Form = () => {
 
@@ -20,8 +21,17 @@ const Form = () => {
     const addCheck = contacts?.find(({ name }) => name.includes(nameToAdd));
     if (!addCheck) {
       dispatch(addContact({ name, number }));
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: `${name} was added...`,
+        showConfirmButton: false,
+        timer: 1500
+      })
+      
+
     } else {
-      Notiflix.Report.success(`${name} was added`);
+      Notiflix.Report.success(`${name} already is in your contacts`);
     }
     reset();
   };
