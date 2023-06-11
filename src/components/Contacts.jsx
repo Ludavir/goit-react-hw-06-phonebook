@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/Contacts.css';
-
+import Swal from 'sweetalert2'
 import { useSelector, useDispatch } from 'react-redux';
 import { removeContact } from 'redux/contacts/contact-slice';
 import { getAllContacts } from 'redux/contacts/contact-selectors';
@@ -17,6 +17,13 @@ const Contacts = () => {
   const onDelete = id => {
     const action = removeContact(id);
     dispatch(action);
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: 'Your contact was deleted',
+      showConfirmButton: false,
+      timer: 1500
+    })
   };
 
   const elements = filterContactsContacts?.map(({ name, id, number }) => {
